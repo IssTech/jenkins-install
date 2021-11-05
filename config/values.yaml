@@ -19,7 +19,8 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  tag: "2.289.1-jdk11"
+  tag: "jdk11"
+  # Using Latest jdk11 image
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
@@ -207,17 +208,18 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:1.29.4
+    - kubernetes:latest
     - workflow-multibranch:latest
     - workflow-aggregator:latest
     - pipeline-model-definition:latest
     - pipeline-model-extensions:latest
-    - git:4.7.1
-    - configuration-as-code:1.51
+    - git:latest
+    - configuration-as-code:latest
+    - blueocean:latest
   resources:
 
   # Set to false to download the minimum required version of all dependencies.
-  installLatestPlugins: false
+  installLatestPlugins: true
 
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
@@ -315,7 +317,7 @@ controller:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the
       # http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected.
       enabled: true
-      image: kiwigrid/k8s-sidecar:1.12.2
+      image: kiwigrid/k8s-sidecar:latest
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -554,7 +556,7 @@ agent:
   maxRequestsPerHostStr: "32"
   namespace:
   image: "jenkins/inbound-agent"
-  tag: "4.6-1"
+  tag: "latest"
   workingDir: "/home/jenkins"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
