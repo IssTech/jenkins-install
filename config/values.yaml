@@ -116,9 +116,7 @@ controller:
   # Jenkins controller service annotations
   serviceAnnotations: {}
   # Jenkins controller custom labels
-  statefulSetLabels: {
-
-    }
+  statefulSetLabels: {}
   #   foo: bar
   #   bar: foo
   # Jenkins controller service labels
@@ -389,7 +387,7 @@ controller:
   updateStrategy: {}
 
   ingress:
-    enabled: true
+    enabled: false
     # Override for the default paths that map requests to the backend
     paths: []
     # - backend:
@@ -406,7 +404,7 @@ controller:
     apiVersion: "networking.k8s.io/v1"
     labels: {}
     annotations:
-      kubernetes.io/ingress.class: traefik
+      #kubernetes.io/ingress.class: traefik
       #cert-manager.io/cluster-issuer: self-signed-issuer
       #traefik.ingress.kubernetes.io/router.tls: "true"
     # kubernetes.io/tls-acme: "true"
@@ -416,8 +414,8 @@ controller:
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # path: "/jenkins"
     # configures the hostname e.g. jenkins.example.com
-    hostName: jenkins.isstech.local
-    #tls:
+    hostName:
+    tls:
     #- secretName: jenkins.isstech.local
     #  hosts:
     #  - jenkins.isstech.local
